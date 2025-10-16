@@ -1,0 +1,6 @@
+@SwaggerGen_HostAddress = http://localhost:5212
+
+GET {{SwaggerGen_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

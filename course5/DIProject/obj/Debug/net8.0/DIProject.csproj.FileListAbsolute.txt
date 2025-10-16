@@ -1,0 +1,5 @@
+C:\Users\My PC\Microsoft FS\course5\DIProject\obj\Debug\net8.0\DIProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\My PC\Microsoft FS\course5\DIProject\obj\Debug\net8.0\DIProject.AssemblyInfoInputs.cache
+C:\Users\My PC\Microsoft FS\course5\DIProject\obj\Debug\net8.0\DIProject.AssemblyInfo.cs
+C:\Users\My PC\Microsoft FS\course5\DIProject\obj\Debug\net8.0\DIProject.csproj.CoreCompileInputs.cache
+C:\Users\My PC\Microsoft FS\course5\DIProject\obj\Debug\net8.0\DIProject.MvcApplicationPartsAssemblyInfo.cache

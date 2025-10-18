@@ -1,0 +1,41 @@
+-- Stored Procedure
+DELIMITER $$
+CREATE PROCEDURE IncreaseSalary (
+    IN deptName VARCHAR(50),
+    IN increment DECIMAL(10, 2)
+)
+BEGIN
+    IF increment <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Increment must be positive';
+    END IF;
+
+    UPDATE Employees
+    SET Salary = Salary + increment
+    WHERE Department = deptName;
+
+    IF ROW_COUNT() = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Department not found';
+    END IF;
+END$$
+DELIMITER ;
+
+-- Execution:
+CALL IncreaseSalary('Finance', 5000);
+SELECT * FROM Employees;
+
+-- Scalar Function
+DELIMITER $$
+CREATE FUNCTION CalculateBonus (salary DECIMAL(10, 2))
+RETURNS DECIMAL(10, 2)
+DETERMINISTIC
+BEGIN
+    IF salary <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Salary must be positive';
+    END IF;
+    RETURN salary * 0.10;
+END$$
+DELIMITER ;
+
+-- Usage:
+SELECT FirstName, LastName, CalculateBonus(Salary) AS Bonus FROM Employees;
+

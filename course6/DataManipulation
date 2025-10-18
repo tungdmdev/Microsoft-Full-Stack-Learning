@@ -1,0 +1,12 @@
+INSERT INTO Users (FirstName, LastName, Email, Age) VALUES
+('Arjun', 'Patel', 'arjun.patel@example.com', 41);
+
+UPDATE Users SET Age = 26 WHERE FirstName = 'Mei';
+
+DELETE FROM Users WHERE LastName = 'Garcia';
+
+UPDATE Users SET Age = 30;
+
+ROLLBACK;
+
+UPDATE Users SET Age = 30 WHERE FirstName = 'Arjun';

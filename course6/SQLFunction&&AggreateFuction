@@ -1,0 +1,31 @@
+SELECT CONCAT(FirstName, ' ', LastName) AS FullName FROM Employees;
+
+SELECT UPPER(Department) AS UpperDepartment FROM Employees;
+
+SELECT LOWER(LastName) AS LowerLastName FROM Employees;
+
+SELECT LENGTH(FirstName) AS FirstNameLength FROM Employees;
+
+SELECT SUBSTRING(LastName, 1, 3) AS LastNameSnippet FROM Employees;
+
+SELECT COUNT(*) AS TotalEmployees FROM Employees;
+
+SELECT SUM(Salary) AS TotalSalary FROM Employees;
+
+SELECT AVG(Salary) AS AvgEngineeringSalary FROM Employees WHERE Department = 'Engineering';
+
+SELECT MIN(Salary) AS MinSalary FROM Employees;
+
+SELECT MAX(Salary) AS MaxSalesSalary FROM Employees WHERE Department = 'Sales';
+
+SELECT Department, SUM(Salary) AS TotalSalary FROM Employees GROUP BY Department;
+
+SELECT Department, AVG(Salary) AS AvgSalary FROM Employees GROUP BY Department;
+
+SELECT Department, COUNT(*) AS EmployeeCount FROM Employees GROUP BY Department;
+
+SELECT CONCAT(FirstName, ' ', LastName) AS FullName, LENGTH(CONCAT(FirstName, ' ', LastName)) AS FullNameLength FROM Employees;
+
+SELECT YEAR(HireDate) AS HireYear, COUNT(*) AS EmployeeCount FROM Employees GROUP BY HireYear;
+
+SELECT YEAR(HireDate) AS HireYear, SUM(Salary) AS TotalSalary FROM Employees GROUP BY HireYear;

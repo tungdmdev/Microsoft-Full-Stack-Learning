@@ -1,0 +1,28 @@
+@page "/dynamicweather"
+@inject HttpClient Http
+
+@code {
+    private CancellationTokenSource? cts;
+    private List<User>? users;
+
+    private async Task FetchUserData()
+    {
+        cts?.Cancel(); // Cancel any previous requests
+        cts = new CancellationTokenSource();
+
+        try
+        {
+            users = await Http.GetFromJsonAsync<List<User>>(
+                "https://jsonplaceholder.typicode.com/users",
+                cts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Previous user request was canceled.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching user data: {ex.Message}");
+        }
+    }
+}

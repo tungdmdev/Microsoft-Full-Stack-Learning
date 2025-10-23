@@ -1,0 +1,82 @@
+@inject WeatherStateService StateService
+
+@code {
+
+    public class WeatherStateService
+{
+    public WeatherData? Weather { get; private set; }
+    public List<User>? Users { get; private set; }
+
+    public event Action? OnChange;
+
+    public void UpdateWeather(WeatherData newWeather)
+    {
+        Weather = newWeather;
+        NotifyStateChanged();
+    }
+
+    public void UpdateUsers(List<User> newUsers)
+    {
+        Users = newUsers;
+        NotifyStateChanged();
+    }
+
+    private void NotifyStateChanged() => OnChange?.Invoke();
+}
+    protected override void OnInitialized()
+    {
+        StateService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        StateService.OnChange -= StateHasChanged;
+    }
+
+}
+
+<button @onclick="FetchNewUserData">Fetch Users</button>
+<button @onclick="FetchWeatherData">Fetch Weather</button>
+
+
+@if (StateService.Users is not null)
+{
+    <ul>
+        @foreach (var user in StateService.Users)
+        {
+            <li>@user.Name (@user.Email)</li>
+        }
+    </ul>
+}
+
+@if (StateService.Weather is not null)
+{
+    <p>Weather: @StateService.Weather.Current.Temp_C°C, @StateService.Weather.Current.Condition.Text</p>
+}
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <p>Data loaded.</p>
+}
+
+@code {
+    private bool isLoading;
+
+    private async Task FetchWeatherData()
+    {
+        isLoading = true;
+        try
+        {
+            var weather = await Http.GetFromJsonAsync<WeatherData>("https://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q=London");
+            StateService.UpdateWeather(weather);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

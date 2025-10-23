@@ -1,0 +1,33 @@
+﻿@page "/home"
+
+<h3>Theme Selector</h3>
+<button @onclick="ToggleTheme">Toggle Theme</button>
+<p>Current Theme: @theme</p>
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+@code {
+    private string theme = "light";
+    private async Task ToggleTheme()
+    {
+        theme = theme == "light" ? "dark" : "light";
+        await localStorage.SetItemAsync("user-theme", theme);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        theme = await localStorage.GetItemAsync<string>("user-theme") ?? "light";
+    }
+}
+
+<button @onclick="ClearStorage">Clear All Storage</button>
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+
+@code {
+    private async Task ClearStorage()
+    {
+        await localStorage.ClearAsync();
+        await sessionStorage.ClearAsync();
+    }
+}

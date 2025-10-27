@@ -1,0 +1,6 @@
+@LoadBalancingSim_HostAddress = http://localhost:5174
+
+GET {{LoadBalancingSim_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

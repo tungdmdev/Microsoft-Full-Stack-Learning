@@ -1,0 +1,49 @@
+Original Query
+SELECT * FROM Products;
+
+Analysis
+EXPLAIN SELECT * FROM Products;
+
+If type: ALL appears in the plan, it indicates a full table scan.
+
+Optimized Query
+SELECT name, price FROM Products WHERE price > 100;
+
+Selecting specific columns reduces the amount of data processed.
+
+
+Original Query
+SELECT Orders.order_id, Customers.name 
+FROM Orders 
+JOIN Customers ON Orders.customer_id = Customers.customer_id;
+
+Optimized Query
+CREATE INDEX idx_customer_id ON Orders (customer_id);
+
+Adding an index on customer_id speeds up row lookups.
+
+
+Original Query
+CREATE TEMPORARY TABLE temp_sales AS 
+SELECT * FROM Sales WHERE quantity > 3;
+
+SELECT AVG(quantity) FROM temp_sales;
+
+Optimized Query
+SELECT AVG(quantity) FROM Sales WHERE quantity > 3;
+
+Eliminating the temporary table reduces memory usage and improves execution speed.
+
+
+Original Query
+SELECT * FROM Products 
+WHERE product_id IN (SELECT product_id FROM Sales WHERE quantity > 3);
+
+Optimized Query
+SELECT Products.* 
+FROM Products 
+JOIN Sales ON Products.product_id = Sales.product_id 
+WHERE Sales.quantity > 3;
+
+JOIN queries are generally faster than subqueries as they reduce redundant executions.
+

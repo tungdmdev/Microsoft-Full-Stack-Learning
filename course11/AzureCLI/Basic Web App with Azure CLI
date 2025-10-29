@@ -1,0 +1,10 @@
+az login
+az account show
+
+az group create --name MyResourceGroup --location eastus
+az appservice plan create --name MyAppServicePlan --resource-group MyResourceGroup --sku F1
+az webapp create --name MyWebApp --resource-group MyResourceGroup --plan MyAppServicePlan
+
+az webapp up --name MyWebApp
+
+Open a browser and visit https://MyWebApp.azurewebsites.net.
